@@ -4,7 +4,7 @@
 * Support for zip and non-compressed binaries.
 * Added support for `arm64` architecture.
 * Fix for use on Windows platform (the binary would get placed in the wrong place for consumers).
-* Shipped as a bundle using `esbuild`, removing 70 packages of dependencies (including huge things like Babel). Now your users will only have to download one additional package (`@guidhof/go-npm`).
+* Shipped as a bundle using `esbuild`, removing 70 packages of dependencies (including huge things like Babel). Now your users will only have to download one additional package (`@gzuidhof/go-npm`).
 
 ### Distribute cross-platform Go binaries via NPM
 
@@ -53,7 +53,7 @@ Answer the questions to create an initial package.json file
 
 From the directory containing package.json file, do
 
-`$ npm install go-npm --save`
+`$ npm install @gzuidhof/go-npm --save`
 
 This will install go-npm under to your package.json file. It will also create a `node_modules` directory where the `go-npm` package is downloaded. You don't need this directory since you are only going to publish the module and not consume it yourself. Let's go ahead and delete it.
 
@@ -91,7 +91,7 @@ Following variables are available to customize the URL:
 * `{{version}}`: Version number read from  `package.json` file. When you publish your package to NPM, it will use this version number. Ex: 0.0.1
 * `{{platform}}`: `$GOOS` value for the platform
 * `{{arch}}`: `$GOARCH` value for the architecture
-* `{{ win_ext }}`: optional `.exe` extension for windows assets.
+* `{{win_ext}}`: optional `.exe` extension for windows assets.
 
 If you use `goreleaser` to publish your modules, it will automatically set the right architecture & platform in your URL.
 
