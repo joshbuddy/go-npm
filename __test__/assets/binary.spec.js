@@ -47,6 +47,6 @@ describe('verifyAndPlaceBinary()', () => {
 
     verifyAndPlaceBinary('command', './bin', callback);
 
-    expect(fs.renameSync).toHaveBeenCalledWith(path.join('bin', 'command'), path.sep + path.join('usr', 'local', 'bin', 'command'));
+    expect(fs.copyFileSync).toHaveBeenCalledWith(path.join('bin', 'command'), path.sep + path.join('usr', 'local', 'bin', 'command'));
   });
 });
