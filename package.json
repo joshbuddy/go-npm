@@ -19,12 +19,14 @@
     "url": "git+https://github.com/endorlabs/go-npm.git"
   },
   "homepage": "https://github.com/endorlabs/go-npm",
-  "devDependencies": {
-    "esbuild": "^0.12.17",
-    "jest": "^24.5.0",
+  "dependencies": {
     "mkdirp": "^1.0.4",
     "request": "^2.88.2",
     "tar": "^2.2.2",
     "unzipper": "0.10.10"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.17",
+    "jest": "^24.5.0"
   }
 }
