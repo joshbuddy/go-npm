@@ -79,7 +79,7 @@ describe('common', () => {
       const url = common.getUrl({
         default: 'http://url.tar.gz',
         windows: 'http://url.exe.zip',
-        darwin: {
+        macos: {
           default: 'http://url_darwin.tar.gz',
           386: 'http://url_darwin_i386.tar.gz'
         }
@@ -92,7 +92,7 @@ describe('common', () => {
       const url = common.getUrl({
         default: 'http://url.tar.gz',
         windows: 'http://url.exe.zip',
-        darwin: {
+        macos: {
           default: 'http://url_darwin.tar.gz',
           386: 'http://url_darwin_i386.tar.gz'
         }
