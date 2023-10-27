@@ -1,6 +1,6 @@
 {
-  "name": "@endorlabs/go-npm",
-  "version": "0.1.14",
+  "name": "@joshbuddy/go-npm",
+  "version": "0.1.15",
   "description": "Distribute and install Go binaries via NPM",
   "main": "index.js",
   "bin": {
@@ -11,7 +11,8 @@
     "build": "rm -rf ./bin && esbuild --bundle src/index.js --outfile=\"./bin/index.js\" --platform=node --target=es6 --minify-whitespace",
     "prepublishOnly": "npm i && npm run build"
   },
-  "author": "Endor Labs <npm@endor.ai>",
+  "author": "Joshua Hull <joshbuddy@gmail.com>",
+  "contributors": ["Endor Labs <npm@endor.ai>"],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

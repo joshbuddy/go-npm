@@ -21,8 +21,16 @@ const PLATFORM_MAPPING = {
 
 function getInstallationPath(callback) {
 
-  // `npm bin` will output the path where binary files should be installed
-  const packageManager = process.env.npm_execpath || 'npm';
+  // `npm bin` might output the path where binary files should be installed
+  // but in the case of running yarn, we should use that instead
+  let packageManager = 'npm';
+  if (process.env.npm_config_user_agent) {
+    const match = process.env.npm_config_user_agent.match("^[^\/]+");
+    if (match) {
+      packageManager = match[0];
+    }
+  }
+
   exec(`${packageManager} bin`, function(err, stdout, stderr) {
     let dir = null;
     if (err || stderr || !stdout || stdout.length === 0) {
