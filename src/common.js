@@ -33,14 +33,12 @@ function getInstallationPath(callback) {
 
   exec(`${packageManager} bin`, function(err, stdout, stderr) {
     let dir = null;
-    if (err || stderr || !stdout || stdout.length === 0) {
-
-      // We couldn't infer path from `npm bin`. Let's try to get it from
+    if (err) {
+      // We couldn't infer path from `npm|yarn bin`. Let's try to get it from
       // Environment variables set by NPM when it runs.
       // npm_config_prefix points to NPM's installation directory where `bin` folder is available
       // Ex: /Users/foo/.nvm/versions/node/v4.3.0
       const env = process.env;
-
       if (env && env.npm_config_prefix) {
         dir = join(env.npm_config_prefix, 'bin');
       } else {
@@ -51,9 +49,7 @@ function getInstallationPath(callback) {
     }
 
     dir = dir.replace(/node_modules.*[\/\\]\.bin/, join('node_modules', '.bin'));
-
     mkdirp.sync(dir);
-
     callback(null, dir);
   });
 }
