@@ -34,15 +34,21 @@ function getInstallationPath(callback) {
   exec(`${packageManager} bin`, function(err, stdout, stderr) {
     let dir = null;
     if (err) {
-      // We couldn't infer path from `npm|yarn bin`. Let's try to get it from
-      // Environment variables set by NPM when it runs.
-      // npm_config_prefix points to NPM's installation directory where `bin` folder is available
-      // Ex: /Users/foo/.nvm/versions/node/v4.3.0
+      // We couldn't infer path from `npm|yarn bin`.
+      // Let's try to get it from env. Either we'll use
+      // PWD or npm_config_prefix
       const env = process.env;
-      if (env && env.npm_config_prefix) {
-        dir = join(env.npm_config_prefix, 'bin');
-      } else {
-        return callback(new Error('Error finding binary installation directory'));
+      if (env) {
+        if (env.PWD) {
+          dir = join(env.PWD, "node_modules", ".bin");
+        } else if (env.npm_config_prefix) {
+          dir = join(env.npm_config_prefix, "bin");
+        }
+      }
+      if (dir === null) {
+        return callback(
+          new Error("Error finding binary installation directory")
+        );
       }
     } else {
       dir = stdout.trim();

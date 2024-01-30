@@ -29,20 +29,32 @@ describe('common', () => {
       expect(callback).toHaveBeenCalledWith(null, path.sep + path.join('usr', 'local', 'bin'));
     });
 
-    it('should get binaries path from env', () => {
+    it('should get binaries path from env npm_config_prefix', () => {
       childProcess.exec.mockImplementationOnce((_cmd, cb) => cb(new Error()));
 
       process.env.npm_config_prefix = '/usr/local';
+      process.env.PWD = undefined;
 
       common.getInstallationPath(callback);
 
       expect(callback).toHaveBeenCalledWith(null, path.sep + path.join('usr', 'local', 'bin'));
     });
 
+    it('should get binaries path from env PWD', () => {
+      childProcess.exec.mockImplementationOnce((_cmd, cb) => cb(new Error()));
+
+      process.env.PWD = '/hello/there';
+
+      common.getInstallationPath(callback);
+
+      expect(callback).toHaveBeenCalledWith(null, '/hello/there/node_modules/.bin');
+    });
+
     it('should call callback with error if binaries path is not found', () => {
       childProcess.exec.mockImplementationOnce((_cmd, cb) => cb(new Error()));
 
       process.env.npm_config_prefix = undefined;
+      process.env.PWD = undefined;
 
       common.getInstallationPath(callback);
 
