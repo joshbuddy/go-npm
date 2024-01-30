@@ -92,6 +92,7 @@ Following variables are available to customize the URL:
 * `{{platform}}`: `$GOOS` value for the platform
 * `{{arch}}`: `$GOARCH` value for the architecture
 * `{{win_ext}}`: optional `.exe` extension for windows assets.
+* `{{package_ext}}`: `.zip` extension for Windows and `.tar.gz` for everything else.
 
 If you use `goreleaser` to publish your modules, it will automatically set the right architecture & platform in your URL.
 

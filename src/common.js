@@ -19,6 +19,14 @@ const PLATFORM_MAPPING = {
   freebsd: 'freebsd'
 };
 
+// Mapping between Node's `process.platform` to extensions
+const EXTENSION_MAPPING = {
+  darwin: '.tar.gz',
+  linux: '.tar.gz',
+  win32: '.zip',
+  freebsd: '.tar.gz'
+};
+
 function getInstallationPath(callback) {
 
   // `npm bin` might output the path where binary files should be installed
@@ -162,6 +170,7 @@ function parsePackageJson() {
   url = url.replace(/{{platform}}/g, PLATFORM_MAPPING[process.platform]);
   url = url.replace(/{{version}}/g, version);
   url = url.replace(/{{bin_name}}/g, binName);
+  url = url.replace(/{{package_ext}}/g, EXTENSION_MAPPING[process.platform]);
 
   return {
     binName,
