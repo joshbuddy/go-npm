@@ -1,6 +1,6 @@
 {
   "name": "@joshbuddy/go-npm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Distribute and install Go binaries via NPM",
   "main": "index.js",
   "bin": {
@@ -12,7 +12,9 @@
     "prepublishOnly": "npm i && npm run build"
   },
   "author": "Joshua Hull <joshbuddy@gmail.com>",
-  "contributors": ["Endor Labs <npm@endor.ai>"],
+  "contributors": [
+    "Endor Labs <npm@endor.ai>"
+  ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
