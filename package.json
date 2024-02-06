@@ -1,6 +1,6 @@
 {
   "name": "@joshbuddy/go-npm",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Distribute and install Go binaries via NPM",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "rm -rf ./bin && esbuild --bundle src/index.js --outfile=\"./bin/index.js\" --platform=node --target=es6 --minify-whitespace",
+    "build": "rm -rf ./bin && esbuild --bundle src/index.js --outfile=\"./bin/index.js\" --platform=node --target=es6",
     "prepublishOnly": "npm i && npm run build"
   },
   "author": "Joshua Hull <joshbuddy@gmail.com>",
@@ -18,17 +18,17 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/endorlabs/go-npm.git"
+    "url": "git+https://github.com/joshbuddy/go-npm.git"
   },
-  "homepage": "https://github.com/endorlabs/go-npm",
+  "homepage": "https://github.com/joshbuddy/go-npm",
   "dependencies": {
-    "mkdirp": "^1.0.4",
-    "request": "^2.88.2",
-    "tar": "^2.2.2",
-    "unzipper": "0.10.10"
+    "get-uri": "^6.0.2",
+    "mkdirp": "^3.0.1",
+    "tar": "^6.2.0",
+    "unzipper": "^0.10.10"
   },
   "devDependencies": {
-    "esbuild": "^0.12.17",
-    "jest": "^24.5.0"
+    "esbuild": "^0.20.0",
+    "jest": "^29.7.0"
   }
 }

@@ -1,19 +1,18 @@
-const mkdirp = require('mkdirp');
-const request = require('request');
-const { parsePackageJson } = require('../common');
-const verifyAndPlaceBinary = require('../assets/binary');
+const mkdirp = require("mkdirp");
+const { getUri } = require("get-uri");
+const { parsePackageJson } = require("../common");
+const verifyAndPlaceBinary = require("../assets/binary");
 
 /**
  * Select a resource handling strategy based on given options.
  */
-function getStrategy({ url }) {
-
-  if (url.endsWith('.tar.gz')) {
-      return require('../assets/untar');
-  } else if (url.endsWith('.zip')) {
-      return require('../assets/unzip');
+function getStrategy(url) {
+  if (url.endsWith(".tar.gz")) {
+    return require("../assets/untar");
+  } else if (url.endsWith(".zip")) {
+    return require("../assets/unzip");
   } else {
-      return require('../assets/move');
+    return require("../assets/move");
   }
 }
 
@@ -26,29 +25,25 @@ function getStrategy({ url }) {
  *  See: https://docs.npmjs.com/files/package.json#bin
  */
 function install(callback) {
-
   const opts = parsePackageJson();
-  if (!opts) return callback('Invalid inputs');
+  if (!opts) return callback("Invalid inputs");
 
   mkdirp.sync(opts.binPath);
 
-  console.log('Downloading from URL: ' + opts.url);
+  console.log("Downloading from URL: " + opts.url);
 
-  const req = request({ uri: opts.url });
-
-  req.on('error', () => callback('Error downloading from URL: ' + opts.url));
-  req.on('response', (res) => {
-      if (res.statusCode !== 200) return callback('Error downloading binary. HTTP Status Code: ' + res.statusCode);
-
-      const strategy = getStrategy(opts);
-
+  getUri(opts.url)
+    .then((stream) => {
+      const strategy = getStrategy(opts.url);
       strategy({
-          opts,
-          req,
-          onSuccess: () => verifyAndPlaceBinary(opts.binName, opts.binPath, callback),
-          onError: callback
+        opts,
+        req: stream,
+        onSuccess: () =>
+          verifyAndPlaceBinary(opts.binName, opts.binPath, callback),
+        onError: callback,
       });
-  });
+    })
+    .catch(callback);
 }
 
 module.exports = install;
