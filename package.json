@@ -25,7 +25,7 @@
     "mkdirp": "^1.0.4",
     "request": "^2.88.2",
     "tar": "^2.2.2",
-    "unzipper": "0.10.10"
+    "unzip-stream": "^0.3.1"
   },
   "devDependencies": {
     "esbuild": "^0.12.17",

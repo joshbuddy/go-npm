@@ -1,4 +1,4 @@
-const unzipper = require('unzipper');
+const unzipStream = require('unzip-stream');
 
 /**
  * Unzip strategy for resources using `.zip`.
@@ -8,7 +8,7 @@ const unzipper = require('unzipper');
  */
 function unzip({ opts, req, onSuccess, onError }) {
 
-  const unzip = unzipper.Extract({ path: opts.binPath });
+  const unzip = unzipStream.Extract({ path: opts.binPath });
 
   unzip.on('error', onError);
   unzip.on('close', onSuccess);
