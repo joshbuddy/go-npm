@@ -1,8 +1,8 @@
 const { EventEmitter } = require('events');
-const unzipper = require('unzipper');
+const unzipStream = require('unzip-stream');
 const unzip = require('../../src/assets/unzip');
 
-jest.mock('unzipper', () => ({
+jest.mock('unzip-stream', () => ({
   Extract: jest.fn()
 }));
 
@@ -18,14 +18,14 @@ describe('unzip()', () => {
     onError = jest.fn();
 
     pipe.mockReturnValueOnce({ pipe });
-    unzipper.Extract.mockReturnValueOnce(unzipEvents);
+    unzipStream.Extract.mockReturnValueOnce(unzipEvents);
   });
 
   it('should download resource and unzip to given binPath', () => {
 
     unzip({ opts: { binPath: './bin', binName: 'command' }, req: { pipe }, onSuccess, onError });
 
-    expect(unzipper.Extract).toHaveBeenCalledWith({ path: './bin' });
+    expect(unzipStream.Extract).toHaveBeenCalledWith({ path: './bin' });
   });
 
   it('should call onSuccess on unzip close', () => {
