@@ -21,12 +21,12 @@ describe('common', () => {
       process.env = env;
     });
 
-    it('should get binaries path from `npm bin`', () => {
-      childProcess.exec.mockImplementationOnce((_cmd, cb) => cb(null, path.sep + path.join('usr', 'local', 'bin')));
+    it('should get binaries path from `npm root`', () => {
+      childProcess.exec.mockImplementationOnce((_cmd, cb) => cb(null, path.sep + path.join('usr', 'local')));
 
       common.getInstallationPath(callback);
 
-      expect(callback).toHaveBeenCalledWith(null, path.sep + path.join('usr', 'local', 'bin'));
+      expect(callback).toHaveBeenCalledWith(null, path.sep + path.join('usr', 'local', '.bin'));
     });
 
     it('should get binaries path from env npm_config_prefix', () => {
@@ -47,7 +47,7 @@ describe('common', () => {
 
       common.getInstallationPath(callback);
 
-      expect(callback).toHaveBeenCalledWith(null, '/hello/there/node_modules/.bin');
+      expect(callback).toHaveBeenCalledWith(null, path.sep + path.join('hello', 'there', 'node_modules', '.bin'));
     });
 
     it('should call callback with error if binaries path is not found', () => {

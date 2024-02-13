@@ -29,20 +29,11 @@ const EXTENSION_MAPPING = {
 
 function getInstallationPath(callback) {
 
-  // `npm bin` might output the path where binary files should be installed
-  // but in the case of running yarn, we should use that instead
-  let packageManager = 'npm';
-  if (process.env.npm_config_user_agent) {
-    const match = process.env.npm_config_user_agent.match("^[^\/]+");
-    if (match) {
-      packageManager = match[0];
-    }
-  }
-
-  exec(`${packageManager} bin`, function(err, stdout, stderr) {
+  // `npm root' will output the node_modules directory
+  exec(`npm root`, function(err, stdout, stderr) {
     let dir = null;
     if (err) {
-      // We couldn't infer path from `npm|yarn bin`.
+      // We couldn't infer path from `npm root`.
       // Let's try to get it from env. Either we'll use
       // PWD or npm_config_prefix
       const env = process.env;
@@ -59,7 +50,7 @@ function getInstallationPath(callback) {
         );
       }
     } else {
-      dir = stdout.trim();
+      dir = join(stdout.trim(), '.bin');
     }
 
     dir = dir.replace(/node_modules.*[\/\\]\.bin/, join('node_modules', '.bin'));
